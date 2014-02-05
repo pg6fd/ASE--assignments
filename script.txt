@@ -1,0 +1,21 @@
+$("#btn").click(function() {
+    var cityname = $('#txt').val();
+    var statecode = $('#txt1').val();
+
+  $.ajax({
+  url : "http://www.rentmetrics.com/api/v1/apartments.json?address= "+cityname+","+statecode+"&api_token=TEST&offset=0&limit=1&include_images=false",
+  dataType : "jsonp",
+  error: function(request, status, error) { alert(request.responseText) },
+  success : function(parsed_json) {
+      
+       console.log(parsed_json);
+      $('#address').html("<strong>Address: </strong> " + parsed_json['collection']['0']['address']+"");
+     $('#bedrooms').html("<strong>BedRooms: </strong>"+ parsed_json['collection']['0']['latest_prices']['0']['bedrooms'] + "");
+     $('#rent').html("<strong>Rent: </strong> $"+ parsed_json['collection']['0']['latest_prices']['0']['rent']);
+      $('#owner').html("<strong>Posted Date: </strong>"+ parsed_json['collection']['0']['latest_prices']['0']['rent_posted_date']);
+      
+  }
+
+  });
+});
+
